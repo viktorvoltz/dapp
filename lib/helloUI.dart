@@ -9,6 +9,7 @@ class HelloUI extends StatelessWidget {
     var contractLink = Provider.of<ContractLinking>(context);
 
     TextEditingController yourNameController = TextEditingController();
+    TextEditingController privateAddressController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -24,6 +25,23 @@ class HelloUI extends StatelessWidget {
                   child: Form(
                     child: Column(
                       children: [
+                        Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: TextField(
+                                autocorrect: false,
+                                controller: privateAddressController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: "privateKey",
+                                    hintText: "Enter private Key",
+                                    icon: Icon(Icons.lock)))),
+                        ElevatedButton(
+                          onPressed: (){
+                            contractLink.setPrivatekey(privateAddressController.text);
+                            print(contractLink.privateKey1);
+                          },
+                          child: Text("set private key"),
+                        ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(

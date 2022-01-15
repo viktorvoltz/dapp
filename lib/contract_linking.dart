@@ -9,7 +9,7 @@ import 'package:web_socket_channel/io.dart';
 class ContractLinking extends ChangeNotifier {
   final String _rpcUrl = "http://10.0.2.2:7545";
   final String _wsUrl = "ws://10.0.2.2:7545/";
-  final String _privateKey = "04c2e4ee1f88f6f7ff65b97a238aa6eb2e2cc0fb753e7cf84f1b4ac0f022d5a7";
+  String privateKey1 = "7c555e6ba812e9ea62fa6a5073a30dabbd5c1a1d4120927f1f6c142e9334f8d1";
 
   Web3Client? _client;
   bool isLoading = true;
@@ -56,7 +56,7 @@ class ContractLinking extends ChangeNotifier {
   }
 
   Future<void> getCredentials() async {
-    _credentials = await _client!.credentialsFromPrivateKey(_privateKey);
+    _credentials = await _client!.credentialsFromPrivateKey(privateKey1);
   }
 
   Future<void> getDeployedContract() async {
@@ -91,6 +91,12 @@ class ContractLinking extends ChangeNotifier {
       Transaction.callContract(
         contract: _contract!, function: _setName!, parameters: [nameToSet]));
     getName();
+  }
+
+  setPrivatekey(String privateKey){
+    privateKey1 = privateKey;
+
+    notifyListeners();
   }
 
 
