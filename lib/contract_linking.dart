@@ -9,13 +9,15 @@ import 'package:web_socket_channel/io.dart';
 class ContractLinking extends ChangeNotifier {
   final String _rpcUrl = "http://10.0.2.2:7545";
   final String _wsUrl = "ws://10.0.2.2:7545/";
-  String privateKey1 = "7c555e6ba812e9ea62fa6a5073a30dabbd5c1a1d4120927f1f6c142e9334f8d1";
+  String privateKey1 = "946730ae722751d44157dd4a7f84bb10e6f2b41ac4d41bfd417f5ded696b99c4";
 
   Web3Client? _client;
   bool isLoading = true;
 
   String? _abiCode;
   EthereumAddress? _contractAddress;
+  EthereumAddress? _ownAdress;
+  EthereumAddress? _reciever;
 
   Credentials? _credentials;
 
@@ -57,6 +59,8 @@ class ContractLinking extends ChangeNotifier {
 
   Future<void> getCredentials() async {
     _credentials = await _client!.credentialsFromPrivateKey(privateKey1);
+    _ownAdress = await _credentials!.extractAddress();
+    _reciever = EthereumAddress.fromHex("0x1F7d652234cE7279b83f56e316113ab5bA7d08d0");
   }
 
   Future<void> getDeployedContract() async {
@@ -93,11 +97,20 @@ class ContractLinking extends ChangeNotifier {
     getName();
   }
 
-  setPrivatekey(String privateKey){
+  /*setPrivatekey(String privateKey){
     privateKey1 = privateKey;
 
     notifyListeners();
+  }*/
+  
+  sendEther(){
+    _client!.sendTransaction(
+      _credentials!,
+      Transaction(
+        from: _ownAdress,
+        to: _reciever,
+        value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 20),
+      )
+    );
   }
-
-
 }

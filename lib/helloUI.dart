@@ -37,10 +37,11 @@ class HelloUI extends StatelessWidget {
                                     icon: Icon(Icons.lock)))),
                         ElevatedButton(
                           onPressed: (){
-                            contractLink.setPrivatekey(privateAddressController.text);
-                            print(contractLink.privateKey1);
+                            //contractLink.setPrivatekey(privateAddressController.text);
+                            contractLink.sendEther();
+                            //print(contractLink.privateKey1);
                           },
-                          child: Text("set private key"),
+                          child: Text("send 20 ETH"),
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
