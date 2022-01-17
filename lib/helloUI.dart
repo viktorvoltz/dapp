@@ -32,16 +32,18 @@ class HelloUI extends StatelessWidget {
                                 controller: privateAddressController,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(),
-                                    labelText: "privateKey",
-                                    hintText: "Enter private Key",
+                                    labelText: "ETH",
+                                    hintText: "Enter ETH to send",
                                     icon: Icon(Icons.lock)))),
                         ElevatedButton(
                           onPressed: (){
                             //contractLink.setPrivatekey(privateAddressController.text);
-                            contractLink.sendEther();
+                            contractLink.sendEther(privateAddressController.text);
+                            privateAddressController.clear();
+                            FocusScope.of(context).unfocus();
                             //print(contractLink.privateKey1);
                           },
-                          child: Text("send 20 ETH"),
+                          child: Text("send ETH"),
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,

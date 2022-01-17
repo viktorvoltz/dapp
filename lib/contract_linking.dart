@@ -103,13 +103,13 @@ class ContractLinking extends ChangeNotifier {
     notifyListeners();
   }*/
   
-  sendEther(){
+  sendEther(String value){
     _client!.sendTransaction(
       _credentials!,
       Transaction(
         from: _ownAdress,
         to: _reciever,
-        value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 20),
+        value: EtherAmount.fromUnitAndValue(EtherUnit.ether, value),
       )
     );
   }
